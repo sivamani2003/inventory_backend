@@ -41,4 +41,26 @@ const getoneproduct = async(req,res)=>{
         console.log(err);
     }
 }
-export { addProduct,getProducts,getoneproduct };
+const updateProduct = async(req,res)=>{
+    const { ProductName, ProductPrice, ProductBarcode } = req.body;
+
+    try {
+        const updateProducts = await products.findByIdAndUpdate(req.params.id, { ProductName, ProductPrice, ProductBarcode }, { new: true });
+        console.log("Data Updated");
+        res.status(201).json(updateProducts);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+const deleteProduct = async(req,res)=>{
+    try {
+        const deleteProduct = await products.findByIdAndDelete(req.params.id);
+        console.log("Data Deleted");
+        res.status(201).json(deleteProduct);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+export { addProduct,getProducts,getoneproduct,updateProduct,deleteProduct };
